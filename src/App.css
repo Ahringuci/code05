@@ -16,5 +16,15 @@ table {
 }
 
 td {
+    min-width: 140px;
+    text-align: center;
+}
+
+td,
+button {
     padding: 8px;
+}
+
+button {
+    display: block;
 }

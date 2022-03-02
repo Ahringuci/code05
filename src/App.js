@@ -1,9 +1,12 @@
 import "./App.css";
-import { StudentInfoComponent } from "./Components/Students";
+import ClassWrapper from "./Components/ClassWrapper";
+import GameWrapper from "./Components/GameWrapper";
+
 function App() {
     return (
         <div className="App">
-            <StudentInfoComponent />
+            <GameWrapper />
+            <ClassWrapper />
         </div>
     );
 }

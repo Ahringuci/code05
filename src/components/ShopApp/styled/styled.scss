@@ -1,0 +1,285 @@
+@charset 'UTF-8';
+
+*,
+::after,
+::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {}
+
+body {
+    line-height: 1.15;
+    color: #333;
+    font-size: 16px;
+}
+
+button {
+    outline: 0;
+    border: 0;
+    color: inherit;
+    background-color: transparent;
+
+    &:disabled {
+        background-color: #555;
+        cursor: not-allowed;
+
+        &:hover {
+            background-color: #555;
+        }
+    }
+}
+
+.btn-all {
+    border: 1px solid #30ddff;
+    border-radius: 4px;
+
+    background-color: #30ddff;
+    color: #fff;
+    font-weight: 700;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 10px;
+
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: #fff;
+        color: #30ddff;
+    }
+}
+
+.shop-app {
+    width: 100%;
+
+    display: flex;
+    flex-wrap: wrap;
+
+    &__item {
+        width: 25%;
+
+        padding: 10px;
+
+        margin-top: 10px;
+
+        @media only screen and (max-width: 1000px) {
+            width: 33%;
+        }
+
+        @media only screen and (max-width: 767px) {
+            width: 50%;
+        }
+
+        @media only screen and (max-width: 450px) {
+            width: 100%;
+        }
+    }
+
+    &__item-image {
+        text-align: center;
+
+        figcaption {
+            font-size: 20px;
+            font-weight: 700;
+        }
+    }
+
+    &__item-price {
+        text-align: center;
+        margin-top: 6px;
+    }
+
+    &__item-add-to-cart {
+        width: 200px;
+        height: 42px;
+
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 12px;
+    }
+}
+
+.shop-cart {
+    position: fixed;
+    z-index: 900;
+
+    top: 0;
+    right: 0;
+
+    width: 375px;
+    height: 100%;
+
+    visibility: hidden;
+    opacity: 0;
+
+    transition: all 0.3s ease;
+
+    &.open {
+        visibility: visible;
+        opacity: 1;
+
+        .shop-cart__mask {
+            visibility: visible;
+            opacity: 0.5;
+        }
+
+        .shop-cart__container {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+    &__wallet {
+        color: #fff;
+        margin-bottom: 20px;
+        display: block;
+    }
+
+    &__mask {
+        position: fixed;
+        z-index: -1;
+        top: 0;
+        left: 0;
+
+        background-color: #333;
+        width: 100%;
+        height: 100%;
+    }
+
+    &__toggler {
+        position: fixed;
+        z-index: 1000;
+        top: 10px;
+        right: 10px;
+
+        width: 120px;
+
+        padding: 4px 10px;
+        border-radius: 4px;
+        color: #fff;
+        border: 1px solid #30ddff;
+        background-color: #30ddff;
+
+        transition: all 0.3s ease;
+
+        &:hover {
+            color: #30ddff;
+            background-color: #fff;
+        }
+    }
+
+    &__container {
+        width: 375px;
+        height: 100%;
+
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        padding: 60px 20px 80px 5px;
+
+        background-color: #555;
+        transform: translate3d(100%, 0, 0);
+
+        transition: all 0.3s ease;
+
+    }
+
+    &__remove-all {
+        margin-left: auto;
+        margin-top: 40px;
+    }
+
+    &__pay-area {
+        width: 80%;
+
+        position: absolute;
+        bottom: 20px;
+        left: 10%;
+    }
+
+    &__pay-all {
+        width: 100%;
+        margin-top: 4px;
+    }
+
+    &__empty,
+    &__total {
+        color: #fff;
+    }
+
+    .cart__item {
+        display: flex;
+        align-items: end;
+        margin-bottom: 20px;
+
+        &-image {
+            width: calc(100% - 50px);
+            display: flex;
+            align-items: end;
+
+            img {
+                width: 80px;
+            }
+
+            figcaption {
+                width: calc(100% - 100px);
+
+                padding-left: 20px;
+            }
+        }
+
+        &-title {
+            color: #fff;
+            display: block;
+            font-size: 20px;
+        }
+
+        &-price {
+            color: #fff;
+        }
+
+        &-amount {
+            width: 50px;
+
+            color: #fff;
+        }
+
+        &-remove {
+            width: 26px;
+            min-width: 26px;
+            height: 26px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background-color: #fff;
+
+            margin-right: 5px;
+            margin-bottom: auto;
+            margin-top: auto;
+
+            border: 1px solid pink;
+            border-radius: 4px;
+
+            &::after {
+                content: "X";
+                color: #555;
+                font-weight: 700;
+            }
+
+            &:hover {
+                background-color: #555;
+
+                &::after {
+                    color: #fff;
+                }
+            }
+        }
+    }
+}

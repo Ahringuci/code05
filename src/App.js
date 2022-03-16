@@ -1,12 +1,11 @@
-import "./App.css";
-import ClassWrapper from "./Components/ClassWrapper";
-import GameWrapper from "./Components/GameWrapper";
+import React from "react";
+import ShopApp from "./components/ShopApp/index";
+import "./components/ShopApp/styled/styled.scss";
 
 function App() {
     return (
         <div className="App">
-            <GameWrapper />
-            <ClassWrapper />
+            <ShopApp />
         </div>
     );
 }

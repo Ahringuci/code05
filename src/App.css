@@ -8,7 +8,8 @@ label {
 }
 
 input,
-textarea {
+textarea,
+select {
     display: block;
 
     width: 140px;

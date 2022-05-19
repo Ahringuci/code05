@@ -1,120 +1,108 @@
-import React from "react";
+import React, { useState } from "react";
+import { Formik } from "formik";
 import "./App.css";
 
-function App() {
-    const [books, setBooks] = React.useState([]);
-    const [form, setForm] = React.useState({
-        id: -1,
-        title: "",
-        number: "",
-        errors: {},
-    });
-    const [indexSelected, setIndexSelected] = React.useState(-1);
-
-    const handleChange = (e) => {
-        let _name = e.target.name,
-            _value = e.target.value;
-        setForm({ ...form, [_name]: _value });
+export default function App() {
+    const REGEX = {
+        email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
     };
 
-    const handleValidate = () => {
+    const [form, setForm] = useState({});
+
+    function handleChange(event) {
+        setForm({
+            ...form,
+            [event.target.name]: event.target.value,
+        });
+    }
+
+    function handleValidate() {
         const errors = {};
-
-        if (form.title === " ") {
-            errors.title = "khong để trống !";
-        } else {
-            if (form.title.length < 3) {
-                errors.title = "khong ngắn hơn 3 !";
-            }
+        if (!form.name) {
+            errors.name = "Required";
         }
-
-        if (form.number === "") {
-            errors.number = "khong để trống !";
-        } else {
-            if (+form.number < 0) {
-                errors.number = "khong nho hơn 0 !";
-            }
+        if (!form.email) {
+            errors.email = "Required";
+        } else if (!REGEX.email.test(form.email)) {
+            errors.email = "Invalid email address";
+        }
+        if (!form.password) {
+            errors.password = "Required";
+        }
+        if (!form.phone) {
+            errors.phone = "Required";
         }
         return errors;
-    };
+    }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const errors = handleValidate();
+    function handleSubmit() {
+        alert("Login in successfully!!!");
+        console.log("first");
+    }
 
-        if (errors.length === 0) {
-            setForm({ ...form, errors });
-        } else {
-            let _id = (Math.random() * 10000) | 0;
-            const book = {
-                id: _id,
-                title: form.title,
-                number: form.number,
-            };
-
-            setBooks([...books, book]);
-            setForm({ ...form, title: "", number: "" });
-        }
-    };
-
-    const handleDelete = (id) => {
-        const newBook = books.filter((book) => book.id !== id);
-        setBooks(newBook);
-    };
     return (
-        <div className="app">
-            <h3>LIBRARY</h3>
-            <form onSubmit={(e) => handleSubmit(e)}>
-                <label>tiêu đề</label>
-                <input
-                    name="title"
-                    type="text"
-                    value={form.title}
-                    onChange={(e) => handleChange(e)}
-                    required={true}
-                />
-                {form.errors.title && <p>{form.errors.title}</p>}
+        <div>
+            <h1>Contact form</h1>
+            <Formik
+                initialValues={form}
+                validate={handleValidate}
+                onSubmit={handleSubmit}
+            >
+                {({ errors, handleSubmit }) => (
+                    <form onSubmit={handleSubmit}>
+                        <div
+                            className={`custom-input ${
+                                errors.name ? "custom-input-error" : ""
+                            }`}
+                        >
+                            <label>Name</label>
+                            <input
+                                type="text"
+                                name="name"
+                                value={form.name || ""}
+                                onChange={handleChange}
+                            />
+                            <p className="error">{errors.name}</p>
+                        </div>
+                        <div
+                            className={`custom-input ${
+                                errors.email ? "custom-input-error" : ""
+                            }`}
+                        >
+                            <label>Email</label>
+                            <input
+                                type="email"
+                                name="email"
+                                value={form.email || ""}
+                                onChange={handleChange}
+                            />
+                            <p className="error">{errors.email}</p>
+                        </div>
 
-                <label>số lượng</label>
-                <input
-                    name="number"
-                    type="number"
-                    value={form.number}
-                    onChange={(e) => handleChange(e)}
-                    required={true}
-                />
-                {form.errors.number && <p>{form.errors.number}</p>}
+                        <div
+                            className={`custom-input ${
+                                errors.phone ? "custom-input-error" : ""
+                            }`}
+                        >
+                            <label>Phone</label>
+                            <input
+                                type="number"
+                                name="phone"
+                                value={form.phone || ""}
+                                onChange={handleChange}
+                            />
+                            <p className="error">{errors.phone}</p>
+                        </div>
+                        <textarea
+                            name="msg"
+                            value={form.msg || ""}
+                            onChange={handleChange}
+                        />
 
-                <button>Submit</button>
-            </form>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Number</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {books.length > 0 &&
-                        books.map((val, ind) => (
-                            <tr key={val.id}>
-                                <th>{val.title}</th>
-                                <td>{val.number}</td>
-                                <td>
-                                    <button
-                                        onClick={() => handleDelete(val.id)}
-                                    >
-                                        Delete
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                </tbody>
-            </table>
+                        <button type="submit">Submit</button>
+                    </form>
+                )}
+            </Formik>
         </div>
     );
 }
-
-export default App;

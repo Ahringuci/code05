@@ -7,7 +7,8 @@ label {
     display: block;
 }
 
-input {
+input,
+textarea {
     display: block;
 
     width: 140px;

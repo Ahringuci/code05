@@ -9,7 +9,7 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (user.email === "admin@gmail.com" && user.password === "admin") {
+        if (user.email === "admin@gmail.com" && user.password === "letmein") {
             const _user = JSON.stringify(user);
             localStorage.setItem("user", _user);
             navigate("/");

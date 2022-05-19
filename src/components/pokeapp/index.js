@@ -6,9 +6,7 @@ const PokeApp = () => {
         pokeRender: [],
     };
     const defaultApi = {
-        prev: "https://pokeapi.co/api/v2/pokemon?offset=10&limit=10",
-        curr: "https://pokeapi.co/api/v2/pokemon?offset=10&limit=10",
-        next: "https://pokeapi.co/api/v2/pokemon?offset=10&limit=10",
+        curr: "https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}",
     };
 
     const [api, setApi] = React.useState(defaultApi);
@@ -26,8 +24,6 @@ const PokeApp = () => {
                 };
                 let _api = {
                     ...api,
-                    prev: res.previous,
-                    next: res.next,
                 };
                 setApi(_api);
                 setPokeState(_temp);
